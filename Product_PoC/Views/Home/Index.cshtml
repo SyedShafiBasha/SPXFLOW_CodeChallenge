@@ -1,0 +1,79 @@
+﻿@model IEnumerable<BusinessEntities.ProductEntity>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateNewProductReview")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            <table>
+                <tr>
+                    <th>@Html.DisplayName("Rating")</th>
+                    <th>@Html.DisplayName("Comment")</th>
+                    <th>@Html.DisplayName("User")</th>
+                </tr>
+            </table>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                <table>
+                    @foreach (var reviewitem in item.Reviews)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => reviewitem.Rating)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => reviewitem.Comment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => reviewitem.User)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = reviewitem.ID, rating = reviewitem.Rating, comment = reviewitem.Comment, user = reviewitem.User }) |
+                                @Html.ActionLink("Details", "Details", new { id = reviewitem.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = reviewitem.ID })
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </td>
+        </tr>
+    }
+
+</table>
